@@ -56,8 +56,12 @@ class Blog_IndexController extends Zend_Controller_Action
            $title    = $this->getRequest()->getPost('title');
            $body     = $this->getRequest()->getPost('body');
            $tags     = $this->getRequest()->getPost('tags');
+           $tags_arr = array();
+           if($tags) {
+             $tags_arr = explode(',',$tags);  
+           }
            try {
-                $blogpost->postBlog($title,$body,$tags);
+                $blogpost->postBlog($title,$body,$tags_arr);
            } catch (MongoCursorException $e) {
                echo 'exception ' . $e->getMessage();
            }
