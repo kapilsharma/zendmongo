@@ -1,9 +1,4 @@
 <table>
-<tr>
-    <td>
-        <a href="<?php echo $this->baseUrl('/blog/index/signup');?>">SignUp</a>    
-    </td>     
-</tr> 
 <form name="loginfrm" id="loginfrm" method="post" action="">
 <tr>
     <td>
@@ -14,20 +9,13 @@
     </td> 
 </tr>
 <tr>
-    <td>
+     <td>
         <label>Password :</label>    
     </td>
     <td>
        <input type="password" id="pass" name="pass">    
     </td> 
-</tr> 
-<?php 
-if($this->error_message) {
-?>
-<tr>
-    <td style="color:red"><?php echo $this->error_message;?></td>     
-</tr>
-<?php }?>
+</tr>  
 <tr>    
     <td colspan="2" align="center">
        <input type="submit" id="submit" name="submit" value="Submit">    

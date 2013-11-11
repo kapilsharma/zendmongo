@@ -9,16 +9,15 @@
     </td> 
 </tr>
 <tr>
-    <td>
+     <td>
         <label>Body :</label>    
     </td>
     <td>
-       <!--<input type="text" id="body" name="body">--> 
-       <textarea id="body" name="body"></textarea>
+       <input type="text" id="body" name="body">    
     </td> 
 </tr> 
 <tr>
-    <td>
+     <td>
         <label>Tags :</label>    
     </td>
     <td>
