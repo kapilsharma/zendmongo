@@ -1,4 +1,7 @@
 <table>
+<?php
+if($this->username) {
+?>
 <tr> 
     <td>
         <a href="<?php echo $this->baseUrl('/blog/index/blogpost');?>">Post a blog</a>   
@@ -6,7 +9,18 @@
     <td>
         <a href="<?php echo $this->baseUrl('/blog/index/logout');?>">Logout</a>   
     </td> 
-</tr>    
+</tr>  
+<?php
+} else {
+?>
+<tr> 
+    <td colspan="2">
+        <a href="<?php echo $this->baseUrl('/blog/index/login');?>">Login</a>   
+    </td>    
+</tr>  
+<?php
+}
+?>
 <tr>   
     <td>
         <label>Username</label>   
@@ -19,8 +33,7 @@
     </td>
 </tr>
 <?php
-foreach($this->allusers as $user) {
-   
+foreach($this->allusers as $user) {   
 ?>
 <tr>   
     <td>

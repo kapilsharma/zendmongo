@@ -21,17 +21,14 @@ class Blog_IndexController extends Zend_Controller_Action
     */
    public function indexAction()
    {
-      $this->view->allusers = '';     
-      if($this->loginNamespace->username) {        
-         $users = new Application_Model_Mongo_Blogpost();
-         $fetchAllUsers = $users->fetchAllUsers();             
-         if($fetchAllUsers) {
-            $this->view->allusers = $fetchAllUsers;
-         }        
-      } else {
-         $this->_redirect('/blog/index/login/');   
-      }    
-    }
+      $this->view->allusers = ''; 
+      $this->view->username = ($this->loginNamespace->username)?$this->loginNamespace->username:'';            
+      $users = new Application_Model_Mongo_Blogpost();
+      $fetchAllUsers = $users->fetchAllUsers();             
+      if($fetchAllUsers) {
+         $this->view->allusers = $fetchAllUsers;
+      }
+   }  
     
     /**
      * User's login
@@ -82,26 +79,30 @@ class Blog_IndexController extends Zend_Controller_Action
      */
     public function blogpostAction()
     {
-       $username = $this->loginNamespace->username;
-       if($this->getRequest()->getPost()) {           
-          $blogpost = new Application_Model_Mongo_Blogpost();
-          $title    = $this->getRequest()->getPost('title');
-          $body     = $this->getRequest()->getPost('body');
-          $tags     = $this->getRequest()->getPost('tags');
-          $user     = $username;
-          $tags_arr = array();
-          if($tags) {
-             $tags_arr = explode(',',$tags);  
-          }           
-          try {
-             $insertblog = $blogpost->postBlog($title,$body,$tags_arr,$user);                
-             if($insertblog) {
-                $this->_redirect('/blog/index/'); 
-             }
-          } catch (MongoCursorException $e) {
-             echo 'exception ' . $e->getMessage();
-          }       
-      }        
+       $username = ($this->loginNamespace->username)?$this->loginNamespace->username:'';
+       if($username) {
+          if($this->getRequest()->getPost()) {           
+             $blogpost = new Application_Model_Mongo_Blogpost();
+             $title    = $this->getRequest()->getPost('title');
+             $body     = $this->getRequest()->getPost('body');
+             $tags     = $this->getRequest()->getPost('tags');
+             $user     = $username;
+             $tags_arr = array();
+             if($tags) {
+                $tags_arr = explode(',',$tags);  
+             }           
+             try {
+                $insertblog = $blogpost->postBlog($title,$body,$tags_arr,$user);                
+                if($insertblog) {
+                   $this->_redirect('/blog/index/'); 
+                }
+             } catch (MongoCursorException $e) {
+                echo 'exception ' . $e->getMessage();
+             }       
+         }  
+      } else {
+         $this->_redirect('/blog/index/');  
+      }
     }
     
     /**
