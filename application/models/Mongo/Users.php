@@ -11,10 +11,10 @@ class Application_Model_Mongo_Users extends Bas_Shared_Mongo_Connection
 {  
    /**
     * 
-    * @param type $username
-    * @param type $password
-    * @param type $email
-    * @return type
+    * @param string $username
+    * @param string $password
+    * @param string $email
+    * @return boolean
     * @throws MongoCursorException
     */
    public function signUp($username, $password, $email)
@@ -27,23 +27,13 @@ class Application_Model_Mongo_Users extends Bas_Shared_Mongo_Connection
       } catch (MongoCursorException $e) {
          throw $e;
       }
-   }
+   }   
    
    /**
     * 
-    * @return type
-    */
-   public function fetchAllUsers() 
-   {
-      $collection = $this->getCollection(Bas_Shared_Mongo_Connection::COLLECTION_USERS);
-      return $document   = $collection->find();       
-   }
-   
-   /**
-    * 
-    * @param type $username
-    * @param type $password
-    * @return type
+    * @param string $username
+    * @param string $password
+    * @return array
     */
    public function getUser($username,$password) 
    {

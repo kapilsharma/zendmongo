@@ -7,14 +7,15 @@
  * Used for hadling operations on blogpost collection in blog database in Mongo
  */
 class Application_Model_Mongo_Blogpost extends Bas_Shared_Mongo_Connection
-{  
+{ 
+    
    /**
     * 
-    * @param type $title
-    * @param type $body
-    * @param type $tags
-    * @param type $user
-    * @return type
+    * @param string $title
+    * @param string $body
+    * @param array  $tags
+    * @param string $user
+    * @return boolean
     * @throws MongoCursorException
     */ 
    public function postBlog($title, $body, $tags, $user)
@@ -30,18 +31,18 @@ class Application_Model_Mongo_Blogpost extends Bas_Shared_Mongo_Connection
    
    /**
     * 
-    * @return type
+    * @return cursor object
     */
    public function fetchAllUsers()
    {
       $collection = $this->getCollection(Bas_Shared_Mongo_Connection::COLLECTION_BLOGPOST);
-      return $document   = $collection->find();       
+      return $document   = $collection->find()->sort(array('user'=>1));       
    }
    
    /**
     * 
-    * @param type $blogId
-    * @return type
+    * @param integer $blogId
+    * @return array
     */
    public function findBlog($blogId) 
    {       
@@ -51,11 +52,11 @@ class Application_Model_Mongo_Blogpost extends Bas_Shared_Mongo_Connection
    
    /**
     * 
-    * @param type $blogId
-    * @param type $name
-    * @param type $email
-    * @param type $content
-    * @return type
+    * @param integer $blogId
+    * @param string $name
+    * @param string $email
+    * @param string $content
+    * @return boolean
     */
    public function addComment($blogId,$name,$email,$content) {
       $collection = $this->getCollection(Bas_Shared_Mongo_Connection::COLLECTION_BLOGPOST);       
