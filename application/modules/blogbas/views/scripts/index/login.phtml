@@ -1,0 +1,32 @@
+<table>
+<tr>
+    <td>
+        <a href="<?php echo $this->baseUrl('/blogbas/index/');?>">Go to Homepage</a>        
+        <a href="<?php echo $this->baseUrl('/blogbas/index/signup/');?>">SignUp</a>    
+    </td>     
+</tr> 
+<form name="loginfrm" id="loginfrm" method="post" action="">
+<tr>    
+    <td>   
+       <?php echo $this->loginForm->username;?>
+    </td> 
+</tr>
+<tr>    
+    <td>       
+       <?php echo $this->loginForm->pass;?> 
+    </td> 
+</tr> 
+<?php 
+if($this->error_message) {
+?>
+<tr>
+    <td style="color:red"><?php echo $this->error_message;?></td>     
+</tr>
+<?php }?>
+<tr>    
+    <td align="center">       
+       <?php echo $this->loginForm->submit;?> 
+    </td> 
+</tr>
+</form>
+</table>

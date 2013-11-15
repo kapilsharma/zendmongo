@@ -47,7 +47,7 @@ class Application_Model_Mongo_Blogpost extends Bas_Shared_Mongo_Connection
    public function findBlog($blogId) 
    {       
       $collection = $this->getCollection(Bas_Shared_Mongo_Connection::COLLECTION_BLOGPOST);
-      return $document = iterator_to_array($collection->findOne(array('_id'=> new MongoId($blogId))));      
+      return $document = $collection->findOne(array('_id'=> new MongoId($blogId)));     
    }
    
    /**

@@ -1,0 +1,56 @@
+<table>
+<?php
+if($this->username) {
+?>
+<tr> 
+    <td>
+        <a href="<?php echo $this->baseUrl('/blogbas/index/blogpost');?>">Post a blog</a>   
+    </td>
+    <td>
+        <a href="<?php echo $this->baseUrl('/blogbas/index/logout');?>">Logout</a>   
+    </td> 
+</tr>  
+<?php
+} else {
+?>
+<tr> 
+    <td colspan="2">
+        <a href="<?php echo $this->baseUrl('/blogbas/index/login');?>">Login</a>   
+    </td>    
+</tr>  
+<?php
+}
+?>
+<tr>   
+    <td>
+        <label>Username</label>   
+    </td> 
+    <td>
+        <label>Title</label>   
+    </td>
+    <td>
+        <label>Body</label>   
+    </td>
+</tr>
+<?php
+if($this->allusers) {
+foreach($this->allusers as $user) {
+?>
+<tr>   
+    <td>
+        <a href="<?php echo $this->baseUrl('/blogbas/index/addcomment/blogid/'.$user['_id']);?>"><?php echo $user['user'];?></a>    
+    </td>
+    <td><?php echo $user['title'];?></td> 
+    <td><?php echo $user['body'];?></td> 
+</tr> 
+<?php
+}
+} else {
+?>
+<tr>
+    <td colspan="3">No Record Found.</td>
+</tr>
+<?php
+}
+?>
+</table>
