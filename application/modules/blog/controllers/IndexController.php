@@ -74,6 +74,7 @@ class Blog_IndexController extends Zend_Controller_Action
     public function signupAction()
     {
        $this->view->signUpForm = new Blog_Form_Signup();        
+       $this->view->success_message = ($this->_getParam('successmessage'))?urldecode($this->_getParam('successmessage')):''; 
        if($this->getRequest()->getPost()) {           
           $username = trim($this->getRequest()->getPost('username'));
           $email    = trim($this->getRequest()->getPost('email'));
@@ -86,7 +87,7 @@ class Blog_IndexController extends Zend_Controller_Action
              if($signUp) {
                 //$this->_redirect('/blog/index/');
                 $message = urlencode('Signed Up Successfully. Please login.'); 
-                   $this->_redirect("/blog/index/login/errormessage/$message");
+                   $this->_redirect("/blog/index/signup/successmessage/$message");
              }
              
           } catch (Exception $e) {

@@ -21,6 +21,13 @@
        <?php echo $this->signUpForm->pass;?>
     </td> 
 </tr> 
+<?php 
+if($this->success_message) {
+?>
+<tr>    
+    <td style="color:red"><?php echo $this->success_message;?></td>     
+</tr>
+<?php }?>
 <tr>    
     <td align="center">
        <?php echo $this->signUpForm->submit;?>

@@ -51,6 +51,7 @@ class Blogshanty_IndexController extends Zend_Controller_Action
     public function signupAction()
     {
        $this->view->signUpForm = new Blogshanty_Form_Signup();        
+       $this->view->success_message = ($this->_getParam('successmessage'))?urldecode($this->_getParam('successmessage')):''; 
        if($this->getRequest()->getPost()) {        
           $username = $this->getRequest()->getPost('username');
           $email    = $this->getRequest()->getPost('email');
@@ -60,7 +61,7 @@ class Blogshanty_IndexController extends Zend_Controller_Action
                 $signUp = $this->users->signUp($username,$password,$email);            
                 if($signUp) {                
                    $message = urlencode('Signed Up Successfully. Please login.'); 
-                   $this->_redirect("/blogshanty/index/login/errormessage/$message");
+                   $this->_redirect("/blogshanty/index/signup/successmessage/$message");
                 }
              } catch (Exception $e) {
                 echo 'exception ' . $e->getMessage();exit;
