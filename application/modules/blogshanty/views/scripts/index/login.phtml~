@@ -1,20 +1,24 @@
+<?php
+//echo "<p><a href='".$this->url ( array ('controller' => 'index','action' => 'signup' ) )."'> Sign Up </a></p>";
+//echo $this->loginForm;
+?>
+
 <table>
 <tr>
     <td>
-        <a href="<?php echo $this->baseUrl('/blog/index/');?>">Go to Homepage</a>        
-        <a href="<?php echo $this->baseUrl('/blog/index/signup/');?>">SignUp</a>    
+        <a href="<?php echo $this->baseUrl('/blog/index/signup');?>">SignUp</a>    
     </td>     
 </tr> 
 <form name="loginfrm" id="loginfrm" method="post" action="">
-<tr>
-    <td>
+<tr>    
+    <td>   
        <?php echo $this->loginForm->username;?>
-    </td>
+    </td> 
 </tr>
-<tr>
-    <td>
+<tr>    
+    <td>       
        <?php echo $this->loginForm->pass;?> 
-    </td>
+    </td> 
 </tr> 
 <?php 
 if($this->error_message) {

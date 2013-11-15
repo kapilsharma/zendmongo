@@ -14,7 +14,7 @@ class Blog_IndexController extends Zend_Controller_Action
    public function init()
    {     
       $this->loginNamespace  = new Zend_Session_Namespace('Login');///session namespace
-      //
+     
       //for Shanty
       $this->blogpost = new Application_Model_Shanty_Blogpost();
       $this->users = new Application_Model_Shanty_Users();
@@ -58,6 +58,7 @@ class Blog_IndexController extends Zend_Controller_Action
           $username = trim($this->getRequest()->getPost('username')); 
           $password = trim($this->getRequest()->getPost('pass'));
                              
+          if($username && $password) {
           $getUser = $this->users->getUser($username,$password);//for custom class                
           //$getUser = (array)$this->users->fetchOne(array('_id'=>$username,'password'=>$password))->export();//for shanty  
           
@@ -67,9 +68,10 @@ class Blog_IndexController extends Zend_Controller_Action
              $this->_redirect('/blog/index/');
           } else {
              $message = urlencode('Enter proper Username and Password'); 
-             $this->_redirect("blog/index/login/errormessage/$message");   
+                $this->_redirect("/blog/index/login/errormessage/$message");   
           }
        }        
+    }
     }
     
     /**
@@ -79,10 +81,10 @@ class Blog_IndexController extends Zend_Controller_Action
     {
        $this->view->signUpForm = new Blog_Form_Signup();        
        if($this->getRequest()->getPost()) {           
-           
-          $username = $this->getRequest()->getPost('username');
-          $email    = $this->getRequest()->getPost('email');
-          $password = $this->getRequest()->getPost('pass');
+          $username = trim($this->getRequest()->getPost('username'));
+          $email    = trim($this->getRequest()->getPost('email'));
+          $password = trim($this->getRequest()->getPost('pass'));
+          if($username && $email && $password) {
           try {
              $signUp = $this->users->signUp($username,$password,$email);//for custom class
              //$signUp = $this->users->insert(array('_id'=>$username,'password'=>$password,'email'=>$email));//for shanty
@@ -90,13 +92,14 @@ class Blog_IndexController extends Zend_Controller_Action
              if($signUp) {
                 //$this->_redirect('/blog/index/');
                 $message = urlencode('Signed Up Successfully. Please login.'); 
-                $this->_redirect("blog/index/login/errormessage/$message");
+                   $this->_redirect("/blog/index/login/errormessage/$message");
              }
+             
           } catch (Exception $e) {
              echo 'exception ' . $e->getMessage();exit;
           }          
-          
        }       
+    }
     }
     
     /**
@@ -169,15 +172,6 @@ class Blog_IndexController extends Zend_Controller_Action
           }
        }
     }
+
 }
-
-
-
-
-
-
-
-
-
-
 

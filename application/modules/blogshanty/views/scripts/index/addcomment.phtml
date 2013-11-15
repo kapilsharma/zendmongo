@@ -6,7 +6,7 @@ $tags = ($blogData && $blogData['tags'])?implode(',',$blogData['tags']):'';
 <table>   
 <tr>
     <td>
-        <a href="<?php echo $this->baseUrl('/blog/index/');?>">Go to Homepage</a>          
+        <a href="<?php echo $this->baseUrl('/blogshanty/index/');?>">Go to Homepage</a>          
     </td>     
 </tr>     
 <form name="addcommentfrm" id="addcommentfrm" method="post" action="">
@@ -27,20 +27,20 @@ $tags = ($blogData && $blogData['tags'])?implode(',',$blogData['tags']):'';
         <label>Add Comment :</label>    
     </td>    
 </tr>
-<tr>
+<tr>    
     <td colspan="2">
         <?php echo $this->addCommentForm->name;?>
     </td>
 </tr>
-<tr>
+<tr>    
     <td colspan="2">        
         <?php echo $this->addCommentForm->email1;?>
     </td>
  </tr>
- <tr>
+ <tr>    
     <td colspan="2">
         <?php echo $this->addCommentForm->comment;?>
-    </td>
+    </td>    
 </tr>
 <tr>    
     <td colspan="2" align="center">

@@ -33,7 +33,7 @@ if($this->username) {
     </td>
 </tr>
 <?php
-foreach($this->allusers as $user) { 
+foreach($this->allusers as $user) {
    
 ?>
 <tr>   

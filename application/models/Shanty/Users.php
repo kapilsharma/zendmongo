@@ -33,7 +33,9 @@ class Application_Model_Shanty_Users extends Shanty_Mongo_Document
     */
    public function getUser($username,$password) 
    {     
-      return $getUser = (array)$this->fetchOne(array('_id'=>$username,'password'=>$password))->export();  
+      //$getUser1 = (array)$this->fetchOne(array('_id'=>$username,'password'=>$password))->export();  
+      $getUser1 = $this->fetchOne(array('_id'=>$username,'password'=>$password));  
+      return ($getUser1)?(array)$getUser1->export():array();      
    }
 }
 

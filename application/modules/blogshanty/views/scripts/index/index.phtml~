@@ -4,10 +4,10 @@ if($this->username) {
 ?>
 <tr> 
     <td>
-        <a href="<?php echo $this->baseUrl('/blog/index/blogpost');?>">Post a blog</a>   
+        <a href="<?php echo $this->baseUrl('/blogshanty/index/blogpost');?>">Post a blog</a>   
     </td>
     <td>
-        <a href="<?php echo $this->baseUrl('/blog/index/logout');?>">Logout</a>   
+        <a href="<?php echo $this->baseUrl('/blogshanty/index/logout');?>">Logout</a>   
     </td> 
 </tr>  
 <?php
@@ -15,7 +15,7 @@ if($this->username) {
 ?>
 <tr> 
     <td colspan="2">
-        <a href="<?php echo $this->baseUrl('/blog/index/login');?>">Login</a>   
+        <a href="<?php echo $this->baseUrl('/blogshanty/index/login');?>">Login</a>   
     </td>    
 </tr>  
 <?php
@@ -33,7 +33,7 @@ if($this->username) {
     </td>
 </tr>
 <?php
-foreach($this->allusers as $user) { 
+foreach($this->allusers as $user) {
    
 ?>
 <tr>   
