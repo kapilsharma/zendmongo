@@ -24,32 +24,23 @@ $tags = ($blogData && $blogData['tags'])?implode(',',$blogData['tags']):'';
     </td>    
 </tr>
 <tr>
-    <td>
-        <label>Name :</label>
-    </td>
-    <td>
-        <input type="text" id="name" name="name"> 
+    <td colspan="2">
+        <?php echo $this->addCommentForm->name;?>
     </td>
 </tr>
 <tr>
-    <td>
-        <label>Email :</label>
-    </td>
-    <td>
-        <input type="text" id="email1" name="email1">
+    <td colspan="2">        
+        <?php echo $this->addCommentForm->email1;?>
     </td>
  </tr>
  <tr>
-     <td>
-        <label>Comment :</label>
+    <td colspan="2">
+        <?php echo $this->addCommentForm->comment;?>
     </td>
-    <td>
-        <textarea id="comment" name="comment"></textarea> 
-    </td>    
 </tr>
 <tr>    
     <td colspan="2" align="center">
-       <input type="submit" id="submit" name="submit" value="Submit">    
+       <?php echo $this->addCommentForm->submit;?>  
     </td> 
 </tr>
 </form>

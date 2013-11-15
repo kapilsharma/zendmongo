@@ -7,19 +7,13 @@
 <form name="loginfrm" id="loginfrm" method="post" action="">
 <tr>
     <td>
-        <label>Username :</label>    
+       <?php echo $this->loginForm->username;?>
     </td>
-    <td>
-       <input type="text" id="username" name="username">    
-    </td> 
 </tr>
 <tr>
     <td>
-        <label>Password :</label>    
+       <?php echo $this->loginForm->pass;?> 
     </td>
-    <td>
-       <input type="password" id="pass" name="pass">    
-    </td> 
 </tr> 
 <?php 
 if($this->error_message) {
@@ -29,8 +23,8 @@ if($this->error_message) {
 </tr>
 <?php }?>
 <tr>    
-    <td colspan="2" align="center">
-       <input type="submit" id="submit" name="submit" value="Submit">    
+    <td align="center">       
+       <?php echo $this->loginForm->submit;?> 
     </td> 
 </tr>
 </form>

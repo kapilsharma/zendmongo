@@ -2,31 +2,23 @@
 <form name="blogpostfrm" id="blogpostfrm" method="post" action="">
 <tr>
     <td>
-        <label>Title :</label>    
+       <?php echo $this->blogPostForm->title;?>
     </td>
-    <td>
-       <input type="text" id="title" name="title">    
-    </td> 
 </tr>
 <tr>
     <td>
-        <label>Body :</label>    
-    </td>
-    <td>
        <!--<input type="text" id="body" name="body">--> 
-       <textarea id="body" name="body"></textarea>
+       <!--<textarea id="body" name="body"></textarea>-->
+       <?php echo $this->blogPostForm->body;?> 
     </td> 
 </tr> 
 <tr>
     <td>
-        <label>Tags :</label>    
+       <?php echo $this->blogPostForm->tags;?>  
     </td>
-    <td>
-       <input type="text" id="tags" name="tags">    
-    </td> 
 </tr>  
 <tr>    
-    <td colspan="2" align="center">
+    <td align="center">
        <input type="submit" id="submit" name="submit" value="Submit">    
     </td> 
 </tr>

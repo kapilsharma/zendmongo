@@ -14,6 +14,14 @@ class Blog_IndexController extends Zend_Controller_Action
    public function init()
    {     
       $this->loginNamespace  = new Zend_Session_Namespace('Login');///session namespace
+      //
+      //for Shanty
+      $this->blogpost = new Application_Model_Shanty_Blogpost();
+      $this->users = new Application_Model_Shanty_Users();
+      
+      //for custom class
+      //$this->blogpost = new Application_Model_Mongo_Blogpost();
+      //$this->users = new Application_Model_Mongo_Users();     
    }
    
    /**
@@ -23,11 +31,17 @@ class Blog_IndexController extends Zend_Controller_Action
    {
       $this->view->allusers = ''; 
       $this->view->username = ($this->loginNamespace->username)?$this->loginNamespace->username:'';            
-      $users = new Application_Model_Mongo_Blogpost();
-      $fetchAllUsers = $users->fetchAllUsers();             
-      if($fetchAllUsers) {
-         $this->view->allusers = $fetchAllUsers;
+      //if($this->loginNamespace->username) {    
+               
+         $fetchAllBlogPost = $this->blogpost->fetchAllUsers();//for custom class  
+         //$fetchAllBlogPost = (array)$this->blogpost->fetchAll()->export();//for shanty 
+                  
+         if($fetchAllBlogPost) {
+            $this->view->allusers = $fetchAllBlogPost;
       }
+      //} else {
+         //$this->_redirect('/blog/index/login/');   
+      //}    
    }  
     
     /**
@@ -35,13 +49,20 @@ class Blog_IndexController extends Zend_Controller_Action
      */
     public function loginAction()
     {
+       if(isset($this->loginNamespace->username) && $this->loginNamespace->username) {
+           $this->_redirect('/blog/index');
+       } 
+       $this->view->loginForm = new Blog_Form_Login();       
        $this->view->error_message = ($this->_getParam('errormessage'))?urldecode($this->_getParam('errormessage')):''; 
        if($this->getRequest()->getPost()) {        
           $username = trim($this->getRequest()->getPost('username')); 
           $password = trim($this->getRequest()->getPost('pass'));
-          $users = new Application_Model_Mongo_Users();
-          $getUser = $users->getUser($username,$password);         
-          if($getUser && count($getUser)==1) {
+                             
+          $getUser = $this->users->getUser($username,$password);//for custom class                
+          //$getUser = (array)$this->users->fetchOne(array('_id'=>$username,'password'=>$password))->export();//for shanty  
+          
+          //if($getUser && count($getUser)==1) {
+          if($getUser) {    
              $this->loginNamespace->username = $username;
              $this->_redirect('/blog/index/');
           } else {
@@ -56,21 +77,25 @@ class Blog_IndexController extends Zend_Controller_Action
      */
     public function signupAction()
     {
+       $this->view->signUpForm = new Blog_Form_Signup();        
        if($this->getRequest()->getPost()) {           
-          $users = new Application_Model_Mongo_Users();
+           
           $username = $this->getRequest()->getPost('username');
           $email    = $this->getRequest()->getPost('email');
           $password = $this->getRequest()->getPost('pass');
           try {
-             $signUp = $users->signUp($username,$password,$email);
+             $signUp = $this->users->signUp($username,$password,$email);//for custom class
+             //$signUp = $this->users->insert(array('_id'=>$username,'password'=>$password,'email'=>$email));//for shanty
+            
              if($signUp) {
                 //$this->_redirect('/blog/index/');
                 $message = urlencode('Signed Up Successfully. Please login.'); 
                 $this->_redirect("blog/index/login/errormessage/$message");
              }
-          } catch (MongoCursorException $e) {
-             echo 'exception ' . $e->getMessage();
+          } catch (Exception $e) {
+             echo 'exception ' . $e->getMessage();exit;
           }          
+          
        }       
     }
     
@@ -79,10 +104,10 @@ class Blog_IndexController extends Zend_Controller_Action
      */
     public function blogpostAction()
     {
+       $this->view->blogPostForm = new Blog_Form_Blogpost();       
        $username = ($this->loginNamespace->username)?$this->loginNamespace->username:'';
        if($username) {
           if($this->getRequest()->getPost()) {           
-             $blogpost = new Application_Model_Mongo_Blogpost();
              $title    = $this->getRequest()->getPost('title');
              $body     = $this->getRequest()->getPost('body');
              $tags     = $this->getRequest()->getPost('tags');
@@ -92,12 +117,13 @@ class Blog_IndexController extends Zend_Controller_Action
                 $tags_arr = explode(',',$tags);  
              }           
              try {
-                $insertblog = $blogpost->postBlog($title,$body,$tags_arr,$user);                
+                $insertblog = $this->blogpost->postBlog($title,$body,$tags_arr,$user);//for custom class
+                //$insertblog = $this->blogpost->insert(array('title'=>$title,'body'=>$body,'tags'=>$tags_arr,'user'=>$user));//for shanty
                 if($insertblog) {
                    $this->_redirect('/blog/index/'); 
                 }
-             } catch (MongoCursorException $e) {
-                echo 'exception ' . $e->getMessage();
+             } catch (Exception $e) {
+                echo 'exception ' . $e->getMessage();exit;
              }       
          }  
       } else {
@@ -120,11 +146,13 @@ class Blog_IndexController extends Zend_Controller_Action
      */
     public function addcommentAction()
     {
+       $this->view->addCommentForm = new Blog_Form_Addcomment();       
        $blog_id = $this->_getParam('blogid');
        $this->view->blogData='';
-       $blog = new Application_Model_Mongo_Blogpost();
+       
        if($blog_id) {          
-          $getBlog = $blog->findBlog($blog_id);          
+          $getBlog = $this->blogpost->findBlog($blog_id);//for custom class   
+          //$getBlog = (array)$this->blogpost->find($blog_id)->export();//for shanty
           $this->view->blogData = $getBlog;
        }
         
@@ -133,7 +161,8 @@ class Blog_IndexController extends Zend_Controller_Action
           $email = trim($this->getRequest()->getPost('email1'));
           $comment  = trim($this->getRequest()->getPost('comment'));
           if($name && $email && $comment) {
-             $addcomment = $blog->addComment($blog_id,$name,$email,$comment);
+             $addcomment = $this->blogpost->addComment($blog_id,$name,$email,$comment);//for custom class
+             //$addcomment = $this->blogpost->update(array("_id" => new MongoId($blog_id)), array('$push' => array('comment'=>array('name'=>$name,'email1'=>$email,'content'=>$comment))));//for shanty     
              if($addcomment) {
                 $this->_redirect('/blog/index/');
              }
@@ -141,7 +170,6 @@ class Blog_IndexController extends Zend_Controller_Action
        }
     }
 }
-
 
 
 

@@ -2,31 +2,22 @@
 <form name="signupfrm" id="signupfrm" method="post" action="">    
 <tr>
     <td>
-        <label>Enter Username :</label>    
+       <?php echo $this->signUpForm->username;?>
     </td>
-    <td>
-       <input type="text" id="username" name="username">    
-    </td> 
 </tr>
 <tr>
     <td>
-        <label>Enter Email :</label>    
+       <?php echo $this->signUpForm->email;?> 
     </td>
-    <td>
-       <input type="text" id="email" name="email">    
-    </td> 
 </tr>
 <tr>
      <td>
-        <label>Enter Password :</label>    
+       <?php echo $this->signUpForm->pass;?>
     </td>
-    <td>
-       <input type="password" id="pass" name="pass">    
-    </td> 
 </tr> 
 <tr>    
-    <td colspan="2" align="center">
-       <input type="submit" id="submit" name="submit" value="Submit">    
+    <td align="center">
+       <?php echo $this->signUpForm->submit;?>
     </td> 
 </tr>
 </form>
