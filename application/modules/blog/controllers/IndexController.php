@@ -13,15 +13,9 @@ class Blog_IndexController extends Zend_Controller_Action
     
    public function init()
    {     
-      $this->loginNamespace  = new Zend_Session_Namespace('Login');///session namespace
-     
-      //for Shanty
-      $this->blogpost = new Application_Model_Shanty_Blogpost();
-      $this->users = new Application_Model_Shanty_Users();
-      
-      //for custom class
-      //$this->blogpost = new Application_Model_Mongo_Blogpost();
-      //$this->users = new Application_Model_Mongo_Users();     
+      $this->loginNamespace  = new Zend_Session_Namespace('Login');///session namespace  
+      $this->blogpost = new Application_Model_Mongo_Blogpost();
+      $this->users = new Application_Model_Mongo_Users();     
    }
    
    /**
