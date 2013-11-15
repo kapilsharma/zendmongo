@@ -106,9 +106,9 @@ class Blog_IndexController extends Zend_Controller_Action
        $username = ($this->loginNamespace->username)?$this->loginNamespace->username:'';
        if($username) {
           if($this->getRequest()->getPost()) {           
-             $title    = $this->getRequest()->getPost('title');
-             $body     = $this->getRequest()->getPost('body');
-             $tags     = $this->getRequest()->getPost('tags');
+             $title    = trim($this->getRequest()->getPost('title'));
+             $body     = trim($this->getRequest()->getPost('body'));
+             $tags     = trim($this->getRequest()->getPost('tags'));
              $user     = $username;
              $tags_arr = array();
              if($tags) {
@@ -145,7 +145,7 @@ class Blog_IndexController extends Zend_Controller_Action
     public function addcommentAction()
     {
        $this->view->addCommentForm = new Blog_Form_Addcomment();       
-       $blog_id = $this->_getParam('blogid');
+       $blog_id = trim($this->_getParam('blogid'));
        $this->view->blogData='';
        
        if($blog_id) {          
