@@ -1,0 +1,8 @@
+<?php
+include('connection.php');
+$username = (isset($_SESSION['username']) && $_SESSION['username'])?$_SESSION['username']:'';
+$fetchAllBlogPost = iterator_to_array($blogpostCollectionObj->find()->sort(array('user'=>1)));
+if($fetchAllBlogPost) {
+  $allusers = $fetchAllBlogPost; 
+  include('indexview.php');
+}
