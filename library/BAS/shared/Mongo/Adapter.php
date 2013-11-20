@@ -217,7 +217,8 @@ class BAS_Shared_Mongo_Adapter
                 self::DB_SERVER, self::DB_PORT
             );
         
-        $connection = new Mongo($mongoDns,array("persist" => "x"));
+        //$connection = new Mongo($mongoDns,array("persist" => "x"));
+        $connection = new Mongo($mongoDns);
         
         self::$_mongo = $connection->selectDB(self::DB_NAME);
         
