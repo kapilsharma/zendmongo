@@ -1,7 +1,8 @@
 <?php
 $blogData = $this->blogData;
-$comment_arr = (isset($blogData['comment']))?$blogData['comment']:'';
-$tags = ($blogData && $blogData['tags'])?implode(',',$blogData['tags']):'';
+$comment_arr = (isset($blogData->comment))?$blogData->comment:'';
+$tags = ($blogData && $blogData->tags)?implode(',',$blogData->tags):'';
+
 ?>
 <table>   
 <tr>
@@ -12,11 +13,11 @@ $tags = ($blogData && $blogData['tags'])?implode(',',$blogData['tags']):'';
 <form name="addcommentfrm" id="addcommentfrm" method="post" action="">
 <tr>
     <td>Title :</td> 
-    <td><?php echo $blogData['title'];?></td> 
+    <td><?php echo $blogData->__get('title');?></td>
 </tr>
 <tr>
     <td>Body :</td> 
-    <td><?php echo $blogData['body'];?></td> 
+    <td><?php echo $blogData->__get('body');?></td> 
 </tr> 
 <tr>
     <td>Tags :</td> 

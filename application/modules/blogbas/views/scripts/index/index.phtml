@@ -35,13 +35,18 @@ if($this->username) {
 <?php
 if($this->allusers) {
 foreach($this->allusers as $user) {
+       
+       $blogid = $user->__get('_id');
+       $title = $user->__get('title');
+       $body  = $user->__get('body');
+       $username = $user->__get('user');
 ?>
 <tr>   
     <td>
-        <a href="<?php echo $this->baseUrl('/blogbas/index/addcomment/blogid/'.$user['_id']);?>"><?php echo $user['user'];?></a>    
+        <a href="<?php echo $this->baseUrl('/blogbas/index/addcomment/blogid/'.$blogid);?>"><?php echo $username;?></a>
     </td>
-    <td><?php echo $user['title'];?></td> 
-    <td><?php echo $user['body'];?></td> 
+    <td><?php echo $title;?></td> 
+    <td><?php echo $body;?></td>    
 </tr> 
 <?php
 }
